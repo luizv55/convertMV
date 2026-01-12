@@ -31,7 +31,10 @@ st.markdown(
 
 uploaded_file = st.file_uploader("Upload an image", type=['xlsx'])
 
+
 if uploaded_file is not None:
+    nome_arquivo = uploaded_file.name
+    nome_arquivo = nome_arquivo.replace(".xlsx", "")
     df = pd.read_excel(uploaded_file)
     df = df.rename(columns={'PROCEDIMENTO':'CD', 'VR_TOTAL': 'VALOR'})
     df['FIM_ARQUIVO'] = '9'
@@ -75,6 +78,6 @@ if uploaded_file is not None:
     st.download_button(
         label="Baixar arquivo XLS",
         data=output,
-        file_name="arquivo_mv.xls",
+        file_name=f"{nome_arquivo}X.xls",
         mime="application/vnd.ms-excel"
     )

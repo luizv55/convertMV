@@ -36,7 +36,8 @@ if uploaded_file is not None:
     nome_arquivo = uploaded_file.name
     nome_arquivo = nome_arquivo.replace(".xlsx", "")
     df = pd.read_excel(uploaded_file)
-    df = df.rename(columns={'PROCEDIMENTO':'CD', 'VR_TOTAL': 'VALOR'})
+    df = df.rename(columns={'PROCEDIMENTO':'CD', 'VR_FIXO': 'VALOR'})
+    df = df[df['VALOR'] != 0]
     df['FIM_ARQUIVO'] = '9'
     df['VL_UCO'] = ''
     df['TP_FILME'] = ''

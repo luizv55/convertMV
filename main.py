@@ -30,13 +30,16 @@ st.markdown(
 
 
 uploaded_file = st.file_uploader("Upload an image", type=['xlsx'])
-
+ligado = st.toggle("Diárias e taxas")
 
 if uploaded_file is not None:
     nome_arquivo = uploaded_file.name
     nome_arquivo = nome_arquivo.replace(".xlsx", "")
     df = pd.read_excel(uploaded_file)
-    df = df.rename(columns={'PROCEDIMENTO':'CD', 'VR_FIXO': 'VALOR'})
+    if ligado:
+        df = df.rename(columns={'PROCEDIMENTO': 'CD', 'VR_TOTAL': 'VALOR'})
+    else:
+        df = df.rename(columns={'PROCEDIMENTO': 'CD', 'VR_FIXO': 'VALOR'})
     df = df[df['VALOR'] != 0]
     df['FIM_ARQUIVO'] = '9'
     df['VL_UCO'] = ''
